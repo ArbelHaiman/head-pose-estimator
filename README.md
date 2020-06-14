@@ -7,8 +7,7 @@ The project is divided into 2 sub-mission:
 1. Creating a dataset for the problem, consists of face images(The samples), and the translation and rotation vectors(The labels).
 2. Creating a model which learns from the dataset, and able to predict the translation and rotation of a new face image.
 
-## Database creation
-# Some technicals:
+# project process and database creation
 For this calculation, we need 3D-2D correspondences. The matrix which represent the transformation we try to calculate
 is a 3 by 4 matrix, so we need to estimate a total of 12 parameters. each correspondence gives 2 equations, meaning we need at least
 6 correspondences for this calculation. If we use more than that, then the result will be more accurate, because we can use optimization 
@@ -33,3 +32,4 @@ Now we apply an augmentation process, in which we make our database bigger and m
 After creating the database, i used 2 CNNs(same architecture) for predicting the labels - ine for rotation vector and one for translation vector.
 
 I also added visualizing tools, which draw the 3 axis on the image, in the directions of the rotation vector.
+I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for the learning process, which took about 20 hours total.
