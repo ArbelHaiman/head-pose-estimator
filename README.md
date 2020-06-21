@@ -39,8 +39,11 @@ Now we apply an augmentation process, in which we make our database bigger and m
 Here is a face image, and the corresponding 68 landmarks in it, and also a bounding box:
 
 ![alt text](images/68 landmarks.png?raw=true "Title")
-![alt text](images/original.jpg?raw=true "Title") 
+
+![alt text](images/original.jpg?raw=true "Title")
+
 ![alt text](images/68 landmarks.png?raw=true "Title")
+
 ![alt text](images/landmarks bbox.png?raw=true "Title")
 
 
