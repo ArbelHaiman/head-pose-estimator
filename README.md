@@ -34,19 +34,6 @@ be our labels.
 ### Augmentation process
 Now we apply an augmentation process, in which we make our database bigger and more versatile, by taking existed images and labels, and applying many kinds of different transformations such as rotation in image plane, changing light conditions, mirroring, cropping, and more. We apply these transformations on images and on their corresponding labels, so at the end we have a bigger and more versatile dataset for the system to learn from.
 
-### An Example of calulating pose and translation and applying the augmentation process
-#### First step: finding the 68 facial landmarks.
-Here is a face image, and the corresponding 68 landmarks in it, and also a bounding box:
-
-![alt text](images/architecture.PNG?raw=true "Title")
-
-![alt text](images/original.jpg?raw=true "Title")
-
-![alt text](images/68 landmarks.png?raw=true "Title")
-
-![alt text](images/landmarks bbox.png?raw=true "Title")
-
-
 ### Learning process
 After creating the database, I used 2 CNNs(same architecture) for predicting the labels - one for rotation vector and one for translation vector.
 
