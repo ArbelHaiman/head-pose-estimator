@@ -35,7 +35,7 @@ be our labels.
 Now we apply an augmentation process, in which we make our database bigger and more versatile, by taking existed images and labels, and applying many kinds of different transformations such as rotation in image plane, changing light conditions, mirroring, cropping, and more. We apply these transformations on images and on their corresponding labels, so at the end we have a bigger and more versatile dataset for the system to learn from.
 
 ### Learning process
-After creating the database, i used 2 CNNs(same architecture) for predicting the labels - ine for rotation vector and one for translation vector.
+After creating the database, I used 2 CNNs(same architecture) for predicting the labels - one for rotation vector and one for translation vector.
 
 ### More tools and technicals
 I also added visualizing tools, which draw the 3 axis on the image, in the directions of the rotation vector.
