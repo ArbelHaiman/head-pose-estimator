@@ -37,7 +37,7 @@ Now we apply an augmentation process, in which we make our database bigger and m
 ### An Example of calulating pose and translation and applying the augmentation process
 First step: finding the 68 facial landmarks.
 Here is a face image, and the corresponding 68 landmarks in it, and also a bounding box:
-![alt text](relative/path/to/img.jpg?raw=true "Title")
+![alt text](images/original.jpg?raw=true "Title")
 
 ### Learning process
 After creating the database, I used 2 CNNs(same architecture) for predicting the labels - one for rotation vector and one for translation vector.
