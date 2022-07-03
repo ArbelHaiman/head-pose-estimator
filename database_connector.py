@@ -2,7 +2,7 @@ import os
 import shutil
 from augmentation_utils import *
 
-# This file contains operations for the merging of different small databases i created during the project.
+# This file contains operations for the merging of different small databases which I created during the project.
 
 model_path = 'model3D_aug_-00_00_01.mat'
 final_dataset_dir = 'final_database'
