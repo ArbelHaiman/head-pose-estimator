@@ -2,11 +2,17 @@ from keras.models import Sequential
 from keras.layers import Dense, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 import joblib
 from keras.optimizers import Adam
 from augmentation_utils import *
 import tensorflow as tf
 from keras.callbacks import ModelCheckpoint
+
+# In this file, we create the CNN- model for the prediction of head pose.
+# The model is defined, then trained, then tested.
+# using this file, it is possible to do hyper-parameters tuning, by using a grid search on the number of layers in the network, size of convolution, 
+# number of neurons at each layer etc. 
 
 # constants for model
 total_examples_for_database = 316152
@@ -59,7 +65,6 @@ def create_model():
     img_arr = img_arr / normalization_factor
     
     val_labels = np.genfromtxt("valid_set2.csv", delimiter=",", skip_header=1)[:size_of_validation_set, label_index_start:label_index_end + 1]
-    print(val_labels[0])
     ###################################################################
     # end of this process #############################################
     ###################################################################
@@ -69,15 +74,18 @@ def create_model():
 
     model = Sequential()
 
-    # conv layers
+    # 2 conv layers
     model.add(Conv2D(64, (3, 3), activation='relu', input_shape=(size_of_images, size_of_images, 1)))
     model.add(Conv2D(64, (3, 3), activation='relu'))
-
+    
+    # max pooling layer
     model.add(MaxPooling2D(pool_size=(2, 2)))
-
+    
+    # 2 conv layers
     model.add(Conv2D(32, (3, 3), activation='relu'))
     model.add(Conv2D(32, (3, 3), activation='relu'))
-
+    
+    # max pooling layer
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
     # fully connected layers
@@ -86,18 +94,34 @@ def create_model():
     model.add(Dense(64, activation='relu'))
     model.add(Dense(32, activation='relu'))
     model.add(Dense(3))
-
+    
+    # adam optimizer
     opt = Adam(lr=1e-3, decay=1e-3 / 200)
+    
+    # define error function
     model.compile(loss='mean_squared_error', optimizer=opt)
     filepath = "weights.best.hdf5"
     checkpoint = ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
     callbacks_list = [checkpoint]
-    model.fit(X_train, y_train,
+    history = model.fit(X_train, y_train,
               batch_size=batch_size,
               epochs=epochs,
               verbose=1,
               callbacks=callbacks_list,
               validation_data=(img_arr, val_labels))
+    
+    # plotting a graph of training set loss and validation set loss, against epochs
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'validation'], loc='upper left')
+    plt.show()
+    
+    # evaluate the model on the test set
+    test_results = model.evaluate(x_test, y_test, batch_size=batch_size)
+    print("test loss: ", results)
     
     # predict first 10 images in the test set and compare to labels
     for i in range(0, 10):
