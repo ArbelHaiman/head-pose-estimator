@@ -67,10 +67,6 @@ def create_model():
     batch_size = 128
     epochs = 80
 
-    # data_to_learn = np.vstack((X_train, img_arr))
-    # labels_to_learn = np.vstack((y_train, val_labels))
-    # print(data_to_learn.shape)
-    # print(labels_to_learn.shape)
     model = Sequential()
 
     # conv layers
