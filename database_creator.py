@@ -5,6 +5,9 @@ from imutils import face_utils
 import time
 from augmentation_utils import *
 
+# This file writes creates the database from images which didn't have labels.
+# For these images, we compute the labels, then write the images and their labels, i.e. pose vectors, into a csv file
+
 # The total number of images to go through
 number_of_images = 11000
 
@@ -68,6 +71,7 @@ def detect_bbox_and_lmks(image):
     :param image: The image to detect in.
     :return: The bbox and landmarks coordinates.
     """
+    # detect the facial landmarks with dlib
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor(predictor_path)
 
@@ -79,10 +83,13 @@ def detect_bbox_and_lmks(image):
     # we take only images with one face in it.
     if len(rects) != 1:
         return None, None
-    rect = rects[0]
+    rect = rects[0
+                 
     # For each detected face, find the landmark.
     landmarks2d = predictor(gray, rect)
     landmarks2d = face_utils.shape_to_np(landmarks2d)
+                 
+    # converting rect to bbox
     rect = rect_to_bb(rect)
     return rect, landmarks2d
 
@@ -97,6 +104,8 @@ def get_list_with_bboxes_and_lmks(images_list):
     landmarks_list = []
     bbox_list = []
     counter = 0
+    
+    # go through all the images, compute the lmks and bbox for each images and append to list
     for ind in range(0, len(images_list)):
         if counter > number_of_images:
             break
@@ -109,7 +118,8 @@ def get_list_with_bboxes_and_lmks(images_list):
             print(counter)
         else:
             print('couldn\'t find landmarks')
-
+    
+    # get final lists as numpy arrays
     images = np.array(images)
     landmarks_list = np.array(landmarks_list)
     bbox_list = np.array(bbox_list)
@@ -135,6 +145,7 @@ df.to_csv(csv_path, index=False)
 time1 = time.time()
 images = get_images_as_list()
 
+# this is a filtered list, to not contain images in which landmarks haven't been found
 good_images_list = []
 bbox_list = []
 lmks_list = []
