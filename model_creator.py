@@ -8,10 +8,13 @@ from augmentation_utils import *
 import tensorflow as tf
 from keras.callbacks import ModelCheckpoint
 
-
+# constants for model
 total_examples_for_database = 316152
 size_of_images = 150
-
+size_of_validation_set = 100
+normalization_factor = 255.0
+label_index_start = 5
+label_index_end = 7
 
 def create_model():
     """
@@ -37,27 +40,25 @@ def create_model():
         database[i, :] = current_image
 
     X_train, X_test, y_train, y_test = train_test_split(database, labels, test_size=0.2)
-
-    X_train = X_train.reshape(X_train.shape[0], size_of_images, size_of_images, 1) / 255.0
-    X_test = X_test.reshape(X_test.shape[0], size_of_images, size_of_images, 1) / 255.0
+    
+    # normalizing the images
+    X_train = X_train.reshape(X_train.shape[0], size_of_images, size_of_images, 1) / normalization_factor
+    X_test = X_test.reshape(X_test.shape[0], size_of_images, size_of_images, 1) / normalization_factor
 
     ###################################################################
     # extracting the validation set for using in the training process #
     ###################################################################
     img_list = []
-    for i in range(0, 10):
+    for i in range(size_of_validation_set):
         img_list.append(cv2.imread('validation/image_0000' + str(i) + '.png', cv2.IMREAD_GRAYSCALE))
 
-    for i in range(10, 100):
-        img_list.append(cv2.imread('validation/image_000' + str(i) + '.png', cv2.IMREAD_GRAYSCALE))
+    img_arr = np.zeros((size_of_validation_set, size_of_images, size_of_images, 1), dtype=np.uint8)
+    for i in range(0, size_of_validation_set):
+        img_arr[i] = cv2.resize(img_list[i], (size_of_images, size_of_images)).reshape((size_of_images, size_of_images, 1))
 
-    img_arr = np.zeros((100, 150, 150, 1), dtype=np.uint8)
-    for i in range(0, 100):
-        img_arr[i] = cv2.resize(img_list[i], (150, 150)).reshape((150, 150, 1))
-
-    img_arr = img_arr / 255.0
-
-    val_labels = np.genfromtxt("valid_set2.csv", delimiter=",", skip_header=1)[0:100, 5:8]
+    img_arr = img_arr / normalization_factor
+    
+    val_labels = np.genfromtxt("valid_set2.csv", delimiter=",", skip_header=1)[:size_of_validation_set, label_index_start:label_index_end + 1]
     print(val_labels[0])
     ###################################################################
     # end of this process #############################################
@@ -73,13 +74,13 @@ def create_model():
     model = Sequential()
 
     # conv layers
-    model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(size_of_images, size_of_images, 1)))
-    model.add(Conv2D(32, (3, 3), activation='relu'))
+    model.add(Conv2D(64, (3, 3), activation='relu', input_shape=(size_of_images, size_of_images, 1)))
+    model.add(Conv2D(64, (3, 3), activation='relu'))
 
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(Conv2D(64, (3, 3), activation='relu'))
-    model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(Conv2D(32, (3, 3), activation='relu'))
+    model.add(Conv2D(32, (3, 3), activation='relu'))
 
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -101,13 +102,15 @@ def create_model():
               verbose=1,
               callbacks=callbacks_list,
               validation_data=(img_arr, val_labels))
-
+    
+    # predict first 10 images in the test set and compare to labels
     for i in range(0, 10):
         image = X_test[i].reshape(1, size_of_images, size_of_images, 1)
         prediction = model.predict(image)
         print('real: ', y_test[i])
         print('pred: ', prediction)
-
+    
+    # save the trained model
     joblib.dump(model, 'final_loc_model.pkl')
     return
 
