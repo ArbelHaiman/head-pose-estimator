@@ -41,6 +41,17 @@ After creating the database and augmenting the images, I used 2 CNNs(same archit
 I also added visualizing tools, which draw the 3D rotation vector in the face's center, which is given by the translation vector.
 I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for the training process, which took about 20 hours total.
 
-## Files
-The file 
+## Files Summary
+1. pre_database_creator.py:
+   Creates the database (images and 6 DoF vectors) from the images which already have the 68 facial landmarks.
+2. database_creator.py:
+   Creates the database (images and 6 DoF vectors) from the images which do not have the 68 facial landmarks (it finds them).
+3. database_connector.py:
+   Creates the combined database, composed of all images and their labels, including augmentations.
+4. model_creator.py:
+   Creates the model architecture, and trains it.
+5. model_demonstrator.py:
+
+6. augmentation_utils.py:
+   Contains all the functions to apply the augmentation operations.
 
