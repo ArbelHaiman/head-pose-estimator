@@ -4,6 +4,8 @@ import time
 import shutil
 from augmentation_utils import *
 
+# This file creates a csv file with all the images and pose vectors, which already had facial landmarks inside matlab matrices
+
 # max number of images to extract from the specified file
 number_of_images = 20000
 
@@ -24,7 +26,10 @@ def extract_landmarks(landmarks_path):
     :param landmarks_path: The path to the .mat file which contains the landmarks.
     :return: The bbox and landmarks extracted.
     """
+    # extract the landmarks
     landmarks_matrix = sio.loadmat(landmarks_path)['pt2d'].transpose()
+    
+    # extract a bounding box
     x_min, y_min = np.amin(landmarks_matrix, axis=0)
     x_max, y_max = np.amax(landmarks_matrix, axis=0)
     bbox = [x_min, y_min, x_max - x_min, y_max - y_min]
@@ -41,20 +46,22 @@ def extract_lm_and_images_from_matlab_files():
     lmks_list = []
     bbox_list = []
     counter = 0
+    # going through all the files
     for subdir, dirs, files in os.walk(rootdir):
         for file in files:
             if counter >= number_of_images:
                 return image_list, bbox_list, lmks_list
+            
+            # adding current landmarks
             if file.endswith('_0.mat'):
                 bbox, current_landmarks = extract_landmarks(os.path.join(subdir, file))
                 bbox_list.append(bbox)
                 lmks_list.append(current_landmarks)
                 counter += 1
+            
+            # adding current image
             elif file.endswith('_0.jpg'):
                 image_list.append(cv2.imread(os.path.join(subdir, file)))
-
-            # print(os.path.join(subdir, file))
-            #image_list.append(cv2.imread(os.path.join(subdir, file)))
 
     return image_list, bbox_list, lmks_list
 
@@ -90,6 +97,7 @@ time1 = time.time()
 pic_list, bbox_list, landmarks_list = extract_lm_and_images_from_matlab_files()
 
 # creating the database
+# augmenting each image, to create a larger and more versatile database for the training
 database_counter = augment_and_create_database(pic_list, landmarks_list, database_counter, img_dir, csv_path)
 
 # measuring the time it took to create the database
