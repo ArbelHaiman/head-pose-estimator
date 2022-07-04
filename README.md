@@ -30,6 +30,9 @@ After we have 3D-2D correspondences for each image, we can calculate the transfo
 the solvepnp function, available in opencv library. The method returns the translation and rotation vectors, which are going to
 be our labels.
 
+### The 68 Facial Landmarks Model
+![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/68landmarks.png)
+
 ### Augmentation Process
 After we have all images and their corresponding 68 landmarks, we apply an augmentation process, in which we make our database larger and more versatile, by taking existed images and labels, and applying different kinds of transformations such as rotation in image plane, changing light conditions, mirroring, cropping, and more. We apply these transformations on images and on their corresponding labels, so at the end we have a larger and more versatile dataset for the system to learn from.
 
@@ -67,7 +70,6 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
 
 #### 2. We find its 68 facial landmarks (or we already have it manually labeled)
 ![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/68landmarkslocating.png)
-![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/68landmarks.png)
 
 #### 3. We augment it, by creating multiple copies of the image, in which we change its parameters (lighting, size, rotation, mirroring and more)
 
