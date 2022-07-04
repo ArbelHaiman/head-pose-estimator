@@ -41,23 +41,23 @@ I also added visualizing tools, which draw the 3D rotation vector in the face's 
 I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for the training process, which took about 20 hours total.
 
 ## Files Summary
-1. pre_database_creator.py:
-   \nCreates the database (images and 6 DoF vectors) from the images which already have the 68 facial landmarks.
-2. database_creator.py:
+#### 1. pre_database_creator.py:
+   Creates the database (images and 6 DoF vectors) from the images which already have the 68 facial landmarks.
+#### 2. database_creator.py:
    Creates the database (images and 6 DoF vectors) from the images which do not have the 68 facial landmarks (it finds them).
-3. database_connector.py:
+#### 3. database_connector.py:
    Creates the combined database, composed of all images and their labels, including augmentations.
-4. model_creator.py:
+#### 4. model_creator.py:
    Creates the model architecture, and trains it.
-5. model_demonstrator.py:
+#### 5. model_demonstrator.py:
    Applies prediction on test set, and show the images with the predictions.
-6. augmentation_utils.py:
+#### 6. augmentation_utils.py:
    Contains all the functions to apply the augmentation operations.
-7. constants.py:
+#### 7. constants.py:
    Contains constants to be used in all other files.
-8. images directory:
+#### 8. images directory:
    Contains images showing different stages in the process.
-9. model3D_aug_-00_00_01.mat:
+#### 9. model3D_aug_-00_00_01.mat:
    The 3D landmarks model, which is used for the computation of the head pose.
 
 ![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/3axis2.png)
