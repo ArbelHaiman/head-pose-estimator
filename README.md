@@ -63,7 +63,7 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
 
 ### An Example Of The Processing
 #### 1. We take a face image
-![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/orginal.png)
+![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/orginal.jpg)
 
 #### 2. We find its 68 facial landmarks (or we already have it manually labeled)
 
