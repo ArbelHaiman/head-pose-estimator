@@ -67,7 +67,7 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
 
 #### 2. We find its 68 facial landmarks (or we already have it manually labeled)
 ![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/68landmarkslocating.png)
-![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/68 landmarks.png)
+![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/68landmarks.png)
 
 #### 3. We augment it, by creating multiple copies of the image, in which we change its parameters (lighting, size, rotation, mirroring and more)
 
