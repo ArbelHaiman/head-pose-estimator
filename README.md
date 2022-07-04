@@ -40,7 +40,7 @@ After we have all images and their corresponding 68 landmarks, we apply an augme
 After creating the database and augmenting the images, I used 2 CNNs(same architecture) for predicting the labels - one for rotation vector and one for translation vector. By trial and error, i it found out to be the best approach to separate the prediction of these two vectors, instead of predicting them using the same network, simultaneously.
 
 ### Model Architecture
-
+![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/model_architecture.PNG)
 
 ### More Tools and Technicals
 I also added visualizing tools, which draw the 3D rotation vector in the face's center, which is given by the translation vector.
