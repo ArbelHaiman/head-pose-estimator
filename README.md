@@ -37,7 +37,10 @@ be our labels.
 After we have all images and their corresponding 68 landmarks, we apply an augmentation process, in which we make our database larger and more versatile, by taking existed images and labels, and applying different kinds of transformations such as rotation in image plane, changing light conditions, mirroring, cropping, and more. We apply these transformations on images and on their corresponding labels, so at the end we have a larger and more versatile dataset for the system to learn from.
 
 ### Learning Process
-After creating the database and augmenting the images, I used 2 CNNs(same architecture) for predicting the labels - one for rotation vector and one for translation vector. By trial and error, i it found out to be the best approach to separate the prediction of these two vectors, instead of predicting them using the same network, simultaneously. 
+After creating the database and augmenting the images, I used 2 CNNs(same architecture) for predicting the labels - one for rotation vector and one for translation vector. By trial and error, i it found out to be the best approach to separate the prediction of these two vectors, instead of predicting them using the same network, simultaneously.
+
+### Model Architecture
+
 
 ### More Tools and Technicals
 I also added visualizing tools, which draw the 3D rotation vector in the face's center, which is given by the translation vector.
@@ -81,7 +84,8 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
 ![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/augmentation7.png)
 ![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/augmentation8.png)
 
-#### 4. We compute its 6DoF vector
+#### 4. For each image, we compute its 6DoF vector
 ![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/3axis3.png)
 
 #### 5. We train the model, then predict on unseen images
+![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/result3.png)
