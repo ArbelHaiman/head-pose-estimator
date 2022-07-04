@@ -51,7 +51,12 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
 4. model_creator.py:
    Creates the model architecture, and trains it.
 5. model_demonstrator.py:
-
+   Applies prediction on test set, and show the images with the predictions.
 6. augmentation_utils.py:
    Contains all the functions to apply the augmentation operations.
+7. constants.py:
+   contains constants to be used in all other files.
+8. images directory:
+   contains images showing different stages in the process.
+9.
 
