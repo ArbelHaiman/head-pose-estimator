@@ -1,5 +1,4 @@
-# head-pose
-## Head Pose Estimator
+# Head Pose Estimator
 This project was a final project of a computer vision course during my Computer Science Master's degree.
 Our mission to create an algorithm for estimating the translation and rotation(meaning, the extrinsic parameters)
 of a face, in a face image.
