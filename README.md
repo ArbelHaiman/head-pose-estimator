@@ -42,7 +42,7 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
 
 ## Files Summary
 1. pre_database_creator.py:
-   Creates the database (images and 6 DoF vectors) from the images which already have the 68 facial landmarks.
+   \nCreates the database (images and 6 DoF vectors) from the images which already have the 68 facial landmarks.
 2. database_creator.py:
    Creates the database (images and 6 DoF vectors) from the images which do not have the 68 facial landmarks (it finds them).
 3. database_connector.py:
