@@ -8,6 +8,7 @@ from keras.optimizers import Adam
 from augmentation_utils import *
 import tensorflow as tf
 from keras.callbacks import ModelCheckpoint
+import constants
 
 # In this file, we create the CNN- model for the prediction of head pose.
 # The model is defined, then trained, then tested.
@@ -16,9 +17,7 @@ from keras.callbacks import ModelCheckpoint
 
 # constants for model
 total_examples_for_database = 316152
-size_of_images = 150
 size_of_validation_set = 100
-normalization_factor = 255.0
 label_index_start = 5
 label_index_end = 7
 
@@ -37,7 +36,7 @@ def create_model():
     labels = labels[:, 3:]
 
     # loading the images
-    database = np.zeros((total_examples_for_database, size_of_images ** 2), dtype=np.uint8)
+    database = np.zeros((total_examples_for_database, cnn_input_image_size ** 2), dtype=np.uint8)
     for i in range(0, database.shape[0]):
         path = 'final_database//image_' + str(i) + '.jpg'
         print(i)
@@ -48,8 +47,8 @@ def create_model():
     X_train, X_test, y_train, y_test = train_test_split(database, labels, test_size=0.2)
     
     # normalizing the images
-    X_train = X_train.reshape(X_train.shape[0], size_of_images, size_of_images, 1) / normalization_factor
-    X_test = X_test.reshape(X_test.shape[0], size_of_images, size_of_images, 1) / normalization_factor
+    X_train = X_train.reshape(X_train.shape[0], cnn_input_image_size, cnn_input_image_size, 1) / float(image_normalization_factor)
+    X_test = X_test.reshape(X_test.shape[0], cnn_input_image_size, cnn_input_image_size, 1) / float(image_normalization_factor)
 
     ###################################################################
     # extracting the validation set for using in the training process #
@@ -58,11 +57,11 @@ def create_model():
     for i in range(size_of_validation_set):
         img_list.append(cv2.imread('validation/image_0000' + str(i) + '.png', cv2.IMREAD_GRAYSCALE))
 
-    img_arr = np.zeros((size_of_validation_set, size_of_images, size_of_images, 1), dtype=np.uint8)
+    img_arr = np.zeros((size_of_validation_set, cnn_input_image_size, cnn_input_image_size, 1), dtype=np.uint8)
     for i in range(0, size_of_validation_set):
-        img_arr[i] = cv2.resize(img_list[i], (size_of_images, size_of_images)).reshape((size_of_images, size_of_images, 1))
+        img_arr[i] = cv2.resize(img_list[i], (cnn_input_image_size, cnn_input_image_size)).reshape((cnn_input_image_size, cnn_input_image_size, 1))
 
-    img_arr = img_arr / normalization_factor
+    img_arr = img_arr / float(image_normalization_factor)
     
     val_labels = np.genfromtxt("valid_set2.csv", delimiter=",", skip_header=1)[:size_of_validation_set, label_index_start:label_index_end + 1]
     ###################################################################
@@ -75,7 +74,7 @@ def create_model():
     model = Sequential()
 
     # 2 conv layers
-    model.add(Conv2D(64, (3, 3), activation='relu', input_shape=(size_of_images, size_of_images, 1)))
+    model.add(Conv2D(64, (3, 3), activation='relu', input_shape=(cnn_input_image_size, cnn_input_image_size, 1)))
     model.add(Conv2D(64, (3, 3), activation='relu'))
     
     # max pooling layer
