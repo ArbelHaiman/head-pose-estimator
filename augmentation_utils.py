@@ -3,6 +3,7 @@ import numpy as np
 import scipy.io as sio
 import pandas as pd
 import math
+import constants
 
 '''
 This file contains all the necessary actions on images for the augmentation process of the dataset.
@@ -18,8 +19,6 @@ swap_dict = {0: 16, 1: 15, 2: 14, 3: 13, 4: 12, 5: 11, 6: 10, 7: 9, 8: 8, 17: 26
              48: 54, 49: 53, 50: 52, 51: 51, 55: 59, 56: 58, 57: 57, 60: 64, 61: 63, 62: 62, 65: 67}
 
 number_of_landmarks = 68
-normalization_factor = 255.0
-cnn_input_size = 150
 
 def show_image_with_bbox_and_lmks(image, bbox, lmks):
     """
@@ -310,7 +309,7 @@ def adjust_gamma(image, gamma=1.0):
     # build a lookup table mapping the pixel values [0, 255] to
     # their adjusted gamma values
     invGamma = 1.0 / gamma
-    table = np.array([((i / float(normalization_factor)) ** invGamma) * normalization_factor for i in np.arange(0, normalization_factor + 1)]).astype(np.uint8)
+    table = np.array([((i / float(image_normalization_factor)) ** invGamma) * image_normalization_factor for i in np.arange(0, image_normalization_factor + 1)]).astype(np.uint8)
     table = table.reshape((-1, 1))
     
     # apply gamma correction using the lookup table
@@ -355,7 +354,7 @@ def scale_to_net_size(image, lmks):
     
     # resizing the image
     try:
-        scaled = cv2.resize(image, (cnn_image_size, cnn_image_size))
+        scaled = cv2.resize(image, (cnn_input_image_size, cnn_input_image_size))
     except:
         print(image, lmks)
     
