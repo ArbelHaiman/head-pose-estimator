@@ -1,5 +1,5 @@
 # head-pose
-## head pose estimator
+## Head Pose Estimator
 This project was a final project of a computer vision course during my Computer Science Master's degree.
 Our mission to create an algorithm for estimating the translation and rotation(meaning, the extrinsic parameters)
 of a face, in a face image.
@@ -55,8 +55,10 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
 6. augmentation_utils.py:
    Contains all the functions to apply the augmentation operations.
 7. constants.py:
-   contains constants to be used in all other files.
+   Contains constants to be used in all other files.
 8. images directory:
-   contains images showing different stages in the process.
-9.
+   Contains images showing different stages in the process.
+9. model3D_aug_-00_00_01.mat:
+   The 3D landmarks model, which is used for the computation of the head pose.
 
+![alt text](https://github.com/ArbelHaiman/head-pose/master/images/image.jpg?raw=true)
