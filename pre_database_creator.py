@@ -102,8 +102,8 @@ database_counter = augment_and_create_database(pic_list, landmarks_list, databas
 
 # measuring the time it took to create the database
 time2 = time.time()
-print('process with ' + str(number_of_images) + ' images took ' + str(math.floor((time2 - time1) / 60)) +
-      ' minutes, and ' + str((time2 - time1) % 60) + ' seconds')
+print('process with ' + str(number_of_images) + ' images took ' + str(math.floor((time2 - time1) / num_seconds_in_minute)) +
+      ' minutes, and ' + str((time2 - time1) % num_seconds_in_minute) + ' seconds')
 print('total number of images in final dataset: ' + str(database_counter - number_to_start))
 
 # showing the results of images with pose vectors drawn on
