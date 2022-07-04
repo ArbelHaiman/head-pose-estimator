@@ -4,6 +4,7 @@ import dlib
 from imutils import face_utils
 import time
 from augmentation_utils import *
+import constants
 
 # This file writes creates the database from images which didn't have labels.
 # For these images, we compute the labels, then write the images and their labels, i.e. pose vectors, into a csv file
@@ -159,8 +160,8 @@ database_counter = augment_and_create_database(good_images_list, lmks_list, data
 
 # printing the time the process took
 time2 = time.time()
-print('process with ' + str(number_of_images) + ' took ' + str(math.floor((time2-time1) / 60)) + ' minutes, and ' +
-      str((time2 - time1) % 60) + ' seconds')
+print('process with ' + str(number_of_images) + ' took ' + str(math.floor((time2-time1) / num_seconds_in_minute)) + ' minutes, and ' +
+      str((time2 - time1) % num_seconds_in_minute) + ' seconds')
 print('total number of images in final dataset: ' + str(database_counter-number_to_start))
 
 data = np.genfromtxt(csv_path, delimiter=',')[1:, 1:]
