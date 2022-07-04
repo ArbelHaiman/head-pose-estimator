@@ -82,5 +82,6 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
 ![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/augmentation8.png)
 
 #### 4. We compute its 6DoF vector
+![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/3axis3.png)
 
 #### 5. We train the model, then predict on unseen images
