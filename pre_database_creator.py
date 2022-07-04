@@ -3,6 +3,7 @@ import os
 import time
 import shutil
 from augmentation_utils import *
+import constants
 
 # This file creates a csv file with all the images and pose vectors, which already had facial landmarks inside matlab matrices
 
