@@ -1,10 +1,9 @@
 import joblib
 from augmentation_utils import *
 from keras import backend as K
-
+import constants
 
 csv_path = 'test_prediction.csv'
-
 
 def use_model_on_test_set():
     """
@@ -31,12 +30,12 @@ def use_model_on_test_set():
         img_list.append(cv2.imread('test_set/image_00' + str(i) + '.png', cv2.IMREAD_GRAYSCALE))
         img_names.append('image_00' + str(i) + '.png')
 
-    img_arr = np.zeros((368, 150, 150, 1), dtype=np.uint8)
+    img_arr = np.zeros((368, cnn_input_image_size, cnn_input_image_size, 1), dtype=np.uint8)
     for i in range(0, len(img_arr)):
-        img_arr[i] = cv2.resize(img_list[i], (150, 150)).reshape((150, 150, 1))
+        img_arr[i] = cv2.resize(img_list[i], (cnn_input_image_size, cnn_input_image_size)).reshape((cnn_input_image_size, cnn_input_image_size, 1))
 
     # predicting poses for test set
-    img_arr = img_arr / 255.0
+    img_arr = img_arr / float(image_normalization_factor)
 
     rot_prediction = rot_model.predict(img_arr)
     loc_prediction = loc_model.predict(img_arr)
@@ -51,8 +50,8 @@ def use_model_on_test_set():
 
     # demonstrate the test set images with pose vector drawn on
     for i in range(0, len(img_arr)):
-        img = cv2.resize(img_list[i], (150, 150))
-        est = draw_axis(cv2.resize(cv2.cvtColor(img, cv2.COLOR_GRAY2RGB), (150, 150)),
+        img = cv2.resize(img_list[i], (cnn_input_image_size, cnn_input_image_size))
+        est = draw_axis(cv2.resize(cv2.cvtColor(img, cv2.COLOR_GRAY2RGB), (cnn_input_image_size, cnn_input_image_size)),
                         prediction[i][:3], prediction[i][3:], camera_matrix)
         print(prediction[i])
         cv2.imshow('prediction', est)
