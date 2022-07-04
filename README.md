@@ -61,11 +61,13 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
    The 3D landmarks model, which is used for the computation of the head pose.
 
 
-### An Example Of The Processing
+### An Example of the Pipeline
 #### 1. We take a face image
 ![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/original.jpg)
 
 #### 2. We find its 68 facial landmarks (or we already have it manually labeled)
+![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/68landmarkslocating.png)
+![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/68 landmarks.png)
 
 #### 3. We augment it, by creating multiple copies of the image, in which we change its parameters (lighting, size, rotation, mirroring and more)
 
