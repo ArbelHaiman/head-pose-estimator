@@ -60,4 +60,4 @@ I used an a laptop with intel i7 9th generation and an NVIDIA RTX 2060 GPU for t
 9. model3D_aug_-00_00_01.mat:
    The 3D landmarks model, which is used for the computation of the head pose.
 
-![alt text](https://github.com/ArbelHaiman/head-pose/master/images/3 axis 2.png?raw=true)
+![alt text](https://github.com/ArbelHaiman/head-pose/master/images/3axis2.png?raw=true)
