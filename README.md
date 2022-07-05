@@ -17,6 +17,9 @@ methods such as RANSAC.
 I used the 68 facial landmarks model for caculating the transformation of the face in an image, meaning 68 3D-2D correspondences
 for each image.
 
+### Project Pipeline
+![alt text](https://github.com/ArbelHaiman/head-pose-estimator/blob/master/images/Pipeline.PNG)
+
 ### Database Creation
 The 2D points of each of the 68 facial landmarks can be found in an image using dlib 68 facial landmarks detector.
 There are also databases, such as HELEN, AFW and IBUG, which are manually labeled(i.e., they consists of the
