@@ -1,6 +1,6 @@
 # Head Pose Estimator
 This project was a final project of a computer vision course during my Computer Science Master's degree.
-Our mission to create an algorithm for estimating the translation and rotation(meaning, the extrinsic parameters)
+Our mission was creating an algorithm for estimating the translation and rotation(i.e., the extrinsic parameters)
 of a face, in a face image.
 The project is divided into 2 sub-mission:
 1. Creating a dataset for the problem, consists of face images(The samples), and the translation and rotation vectors(The labels).
